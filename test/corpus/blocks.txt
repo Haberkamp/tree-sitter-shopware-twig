@@ -61,3 +61,22 @@ Twig blocks with content
     (tag_statement
       (tag))))
 
+===
+If statement
+===
+
+{% if VUE3 %}
+    Some Content 
+{% endif %}
+
+---
+
+(source_file
+  (statement_directive
+    (if_statement
+      (conditional)
+      (variable)))
+  (content)
+  (statement_directive
+    (tag_statement
+      (conditional))))

@@ -18,6 +18,22 @@
         ]
       }
     },
+    "template": {
+      "type": "REPEAT",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "statement_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "content"
+          }
+        ]
+      }
+    },
     "content": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -37,8 +53,17 @@
           "value": "{%"
         },
         {
-          "type": "SYMBOL",
-          "name": "tag_statement"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "if_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "tag_statement"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -46,24 +71,46 @@
         }
       ]
     },
-    "tag_statement": {
+    "if_statement": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "tag"
+          "name": "conditional"
         },
         {
-          "type": "CHOICE",
+          "type": "SYMBOL",
+          "name": "variable"
+        }
+      ]
+    },
+    "tag_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "variable"
+              "name": "tag"
             },
             {
-              "type": "BLANK"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "variable"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "conditional"
         }
       ]
     },
@@ -77,6 +124,19 @@
         {
           "type": "STRING",
           "value": "endblock"
+        }
+      ]
+    },
+    "conditional": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "STRING",
+          "value": "endif"
         }
       ]
     },

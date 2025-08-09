@@ -15,13 +15,21 @@ module.exports = grammar({
   rules: {
     source_file: ($) => repeat(choice($.statement_directive, $.content)),
 
+    template: ($) => repeat(choice($.statement_directive, $.content)),
+
     content: () => prec.right(repeat1(/[^\s\{]+/)),
 
-    statement_directive: ($) => seq("{%", $.tag_statement, "%}"),
+    statement_directive: ($) =>
+      seq("{%", choice($.if_statement, $.tag_statement), "%}"),
 
-    tag_statement: ($) => seq($.tag, optional($.variable)),
+    if_statement: ($) => seq($.conditional, $.variable),
+
+    tag_statement: ($) =>
+      choice(seq($.tag, optional($.variable)), $.conditional),
 
     tag: ($) => choice("block", "endblock"),
+
+    conditional: ($) => choice("if", "endif"),
 
     variable: ($) => /[a-zA-Z0-9_]+/,
   },
