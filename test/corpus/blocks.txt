@@ -1,0 +1,16 @@
+===
+Empty Twig block
+===
+
+{% block some_block %}{% endblock %}
+
+---
+
+(source_file
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (statement_directive
+    (tag_statement
+      (tag))))

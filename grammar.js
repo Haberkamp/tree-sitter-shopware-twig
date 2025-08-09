@@ -11,7 +11,14 @@ module.exports = grammar({
   name: "shopware_twig",
 
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
-  }
+    source_file: ($) => repeat($.statement_directive),
+
+    statement_directive: ($) => seq("{%", $.tag_statement, "%}"),
+
+    tag_statement: ($) => seq($.tag, optional($.variable)),
+
+    tag: ($) => choice("block", "endblock"),
+
+    variable: ($) => /[a-zA-Z0-9_]+/,
+  },
 });
