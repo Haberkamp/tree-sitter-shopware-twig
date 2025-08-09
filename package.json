@@ -1,0 +1,52 @@
+{
+  "name": "tree-sitter-shopware-twig",
+  "version": "0.1.0",
+  "description": "A parser for Shopware 6 Twig",
+  "repository": "https://www.github.com/haberkamp/tree-sitter-shopware-twig",
+  "license": "MIT",
+  "author": {
+    "name": "Nils Haberkamp",
+    "email": "haberkamp.n@gmail.com",
+    "url": "https://www.haberkamp.dev/"
+  },
+  "main": "bindings/node",
+  "types": "bindings/node",
+  "keywords": [
+    "incremental",
+    "parsing",
+    "tree-sitter",
+    "shopware_twig"
+  ],
+  "files": [
+    "grammar.js",
+    "tree-sitter.json",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**",
+    "*.wasm"
+  ],
+  "dependencies": {
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4"
+  },
+  "devDependencies": {
+    "prebuildify": "^6.0.1",
+    "tree-sitter-cli": "^0.25.8"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.22.4"
+  },
+  "peerDependenciesMeta": {
+    "tree-sitter": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "install": "node-gyp-build",
+    "prestart": "tree-sitter build --wasm",
+    "start": "tree-sitter playground",
+    "test": "node --test bindings/node/*_test.js"
+  }
+}

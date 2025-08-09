@@ -1,0 +1,38 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "shopware_twig",
+      "camelcase": "ShopwareTwig",
+      "title": "ShopwareTwig",
+      "scope": "source.shopware_twig",
+      "file-types": ["shopware_twig"],
+      "injection-regex": "^shopware_twig$",
+      "class-name": "TreeSitterShopwareTwig"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A parser for Shopware 6 Twig",
+    "authors": [
+      {
+        "name": "Nils Haberkamp",
+        "email": "haberkamp.n@gmail.com",
+        "url": "https://www.haberkamp.dev/"
+      }
+    ],
+    "links": {
+      "repository": "https://www.github.com/haberkamp/tree-sitter-shopware-twig"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
