@@ -134,98 +134,83 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
   eof = lexer->eof(lexer);
   switch (state) {
     case 0:
-      if (eof) ADVANCE(23);
-      if (lookahead == '%') ADVANCE(22);
-      if (lookahead == 'b') ADVANCE(13);
-      if (lookahead == 'e') ADVANCE(17);
-      if (lookahead == 's') ADVANCE(18);
-      if (lookahead == '{') ADVANCE(1);
+      if (eof) ADVANCE(15);
+      if (lookahead == '%') ADVANCE(14);
+      if (lookahead == 'b') ADVANCE(9);
+      if (lookahead == 'e') ADVANCE(11);
+      if (lookahead == '{') ADVANCE(2);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(0);
       END_STATE();
     case 1:
-      if (lookahead == '%') ADVANCE(24);
+      if (lookahead == '%') ADVANCE(14);
+      if (('\t' <= lookahead && lookahead <= '\r') ||
+          lookahead == ' ') SKIP(1);
+      if (('0' <= lookahead && lookahead <= '9') ||
+          ('A' <= lookahead && lookahead <= 'Z') ||
+          lookahead == '_' ||
+          ('a' <= lookahead && lookahead <= 'z')) ADVANCE(20);
       END_STATE();
     case 2:
-      if (lookahead == '_') ADVANCE(4);
+      if (lookahead == '%') ADVANCE(16);
       END_STATE();
     case 3:
-      if (lookahead == 'b') ADVANCE(14);
+      if (lookahead == 'b') ADVANCE(10);
       END_STATE();
     case 4:
-      if (lookahead == 'b') ADVANCE(15);
+      if (lookahead == 'c') ADVANCE(7);
       END_STATE();
     case 5:
-      if (lookahead == 'c') ADVANCE(10);
+      if (lookahead == 'c') ADVANCE(8);
       END_STATE();
     case 6:
-      if (lookahead == 'c') ADVANCE(11);
-      END_STATE();
-    case 7:
-      if (lookahead == 'c') ADVANCE(12);
-      END_STATE();
-    case 8:
       if (lookahead == 'd') ADVANCE(3);
       END_STATE();
+    case 7:
+      if (lookahead == 'k') ADVANCE(18);
+      END_STATE();
+    case 8:
+      if (lookahead == 'k') ADVANCE(19);
+      END_STATE();
     case 9:
-      if (lookahead == 'e') ADVANCE(2);
+      if (lookahead == 'l') ADVANCE(12);
       END_STATE();
     case 10:
-      if (lookahead == 'k') ADVANCE(26);
+      if (lookahead == 'l') ADVANCE(13);
       END_STATE();
     case 11:
-      if (lookahead == 'k') ADVANCE(27);
+      if (lookahead == 'n') ADVANCE(6);
       END_STATE();
     case 12:
-      if (lookahead == 'k') ADVANCE(28);
+      if (lookahead == 'o') ADVANCE(4);
       END_STATE();
     case 13:
-      if (lookahead == 'l') ADVANCE(19);
-      END_STATE();
-    case 14:
-      if (lookahead == 'l') ADVANCE(20);
-      END_STATE();
-    case 15:
-      if (lookahead == 'l') ADVANCE(21);
-      END_STATE();
-    case 16:
-      if (lookahead == 'm') ADVANCE(9);
-      END_STATE();
-    case 17:
-      if (lookahead == 'n') ADVANCE(8);
-      END_STATE();
-    case 18:
-      if (lookahead == 'o') ADVANCE(16);
-      END_STATE();
-    case 19:
       if (lookahead == 'o') ADVANCE(5);
       END_STATE();
-    case 20:
-      if (lookahead == 'o') ADVANCE(6);
+    case 14:
+      if (lookahead == '}') ADVANCE(17);
       END_STATE();
-    case 21:
-      if (lookahead == 'o') ADVANCE(7);
-      END_STATE();
-    case 22:
-      if (lookahead == '}') ADVANCE(25);
-      END_STATE();
-    case 23:
+    case 15:
       ACCEPT_TOKEN(ts_builtin_sym_end);
       END_STATE();
-    case 24:
+    case 16:
       ACCEPT_TOKEN(anon_sym_LBRACE_PERCENT);
       END_STATE();
-    case 25:
+    case 17:
       ACCEPT_TOKEN(anon_sym_PERCENT_RBRACE);
       END_STATE();
-    case 26:
+    case 18:
       ACCEPT_TOKEN(anon_sym_block);
       END_STATE();
-    case 27:
+    case 19:
       ACCEPT_TOKEN(anon_sym_endblock);
       END_STATE();
-    case 28:
+    case 20:
       ACCEPT_TOKEN(sym_variable);
+      if (('0' <= lookahead && lookahead <= '9') ||
+          ('A' <= lookahead && lookahead <= 'Z') ||
+          lookahead == '_' ||
+          ('a' <= lookahead && lookahead <= 'z')) ADVANCE(20);
       END_STATE();
     default:
       return false;
@@ -238,8 +223,8 @@ static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
   [2] = {.lex_state = 0},
   [3] = {.lex_state = 0},
   [4] = {.lex_state = 0},
-  [5] = {.lex_state = 0},
-  [6] = {.lex_state = 0},
+  [5] = {.lex_state = 1},
+  [6] = {.lex_state = 1},
   [7] = {.lex_state = 0},
   [8] = {.lex_state = 0},
   [9] = {.lex_state = 0},
@@ -253,7 +238,6 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_PERCENT_RBRACE] = ACTIONS(1),
     [anon_sym_block] = ACTIONS(1),
     [anon_sym_endblock] = ACTIONS(1),
-    [sym_variable] = ACTIONS(1),
   },
   [STATE(1)] = {
     [sym_source_file] = STATE(8),

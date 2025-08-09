@@ -14,3 +14,30 @@ Empty Twig block
   (statement_directive
     (tag_statement
       (tag))))
+
+===
+Nested Twig blocks
+===
+
+{% block parent_block %}
+  {% block child_block %}{% endblock %}
+{% endblock %}
+
+---
+
+(source_file
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (statement_directive
+    (tag_statement
+      (tag)))
+  (statement_directive
+    (tag_statement
+      (tag))))
+
