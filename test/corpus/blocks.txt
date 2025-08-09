@@ -41,3 +41,23 @@ Nested Twig blocks
     (tag_statement
       (tag))))
 
+===
+Twig blocks with content
+===
+
+{% block some_block %}
+    Hello, world!
+{% endblock %}
+
+---
+
+(source_file
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (content)
+  (statement_directive
+    (tag_statement
+      (tag))))
+

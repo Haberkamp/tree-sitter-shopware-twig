@@ -10,8 +10,12 @@
 module.exports = grammar({
   name: "shopware_twig",
 
+  extras: () => [/\s/],
+
   rules: {
-    source_file: ($) => repeat($.statement_directive),
+    source_file: ($) => repeat(choice($.statement_directive, $.content)),
+
+    content: () => prec.right(repeat1(/[^\s\{]+/)),
 
     statement_directive: ($) => seq("{%", $.tag_statement, "%}"),
 

@@ -1,5 +1,10 @@
 [
   {
+    "type": "content",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -8,6 +13,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "content",
+          "named": true
+        },
         {
           "type": "statement_directive",
           "named": true
