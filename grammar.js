@@ -20,7 +20,11 @@ module.exports = grammar({
     content: () => prec.right(repeat1(/[^\s\{]+/)),
 
     statement_directive: ($) =>
-      seq("{%", choice($.if_statement, $.tag_statement), "%}"),
+      seq(
+        "{%",
+        choice($.if_statement, $.tag_statement, $.parent_statement),
+        "%}"
+      ),
 
     if_statement: ($) => seq($.conditional, $.variable),
 
@@ -32,5 +36,7 @@ module.exports = grammar({
     conditional: ($) => choice("if", "endif"),
 
     variable: ($) => /[a-zA-Z0-9_]+/,
+
+    parent_statement: ($) => seq("parent", "(", ")"),
   },
 });

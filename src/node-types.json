@@ -29,6 +29,11 @@
     }
   },
   {
+    "type": "parent_statement",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -58,6 +63,10 @@
       "types": [
         {
           "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "parent_statement",
           "named": true
         },
         {
@@ -100,6 +109,14 @@
     "named": false
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": "block",
     "named": false
   },
@@ -113,6 +130,10 @@
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "parent",
     "named": false
   },
   {

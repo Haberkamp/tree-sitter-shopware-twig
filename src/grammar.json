@@ -62,6 +62,10 @@
             {
               "type": "SYMBOL",
               "name": "tag_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "parent_statement"
             }
           ]
         },
@@ -143,6 +147,23 @@
     "variable": {
       "type": "PATTERN",
       "value": "[a-zA-Z0-9_]+"
+    },
+    "parent_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "parent"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     }
   },
   "extras": [

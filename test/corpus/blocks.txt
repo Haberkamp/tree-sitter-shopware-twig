@@ -80,3 +80,24 @@ If statement
   (statement_directive
     (tag_statement
       (conditional))))
+
+===
+Parent
+===
+
+{% block some_block %}
+    {% parent() %}
+{% endblock %}
+
+---
+
+(source_file
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (statement_directive
+    (parent_statement))
+  (statement_directive
+    (tag_statement
+      (tag))))
