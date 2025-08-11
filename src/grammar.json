@@ -17,6 +17,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "html_doctype"
+          },
+          {
+            "type": "SYMBOL",
             "name": "content"
           }
         ]
@@ -233,6 +237,10 @@
           ]
         }
       ]
+    },
+    "html_doctype": {
+      "type": "PATTERN",
+      "value": "<!(?:DOCTYPE|doctype)[\\s\\S]*?>"
     },
     "text": {
       "type": "PATTERN",

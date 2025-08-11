@@ -120,3 +120,25 @@ Custom tags
       (content)
       (html_end_tag (html_tag_name)))
     (html_end_tag (html_tag_name))))
+
+==================================
+All-caps doctype
+==================================
+
+<!DOCTYPE html PUBLIC
+  "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  
+---
+
+(template
+  (html_doctype))
+
+==================================
+Lowercase doctype
+==================================
+<!doctype html>
+---
+
+(template
+  (html_doctype))

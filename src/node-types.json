@@ -220,6 +220,10 @@
           "named": true
         },
         {
+          "type": "html_doctype",
+          "named": true
+        },
+        {
           "type": "html_element",
           "named": true
         },
@@ -288,6 +292,10 @@
   },
   {
     "type": "html_attribute_value",
+    "named": true
+  },
+  {
+    "type": "html_doctype",
     "named": true
   },
   {

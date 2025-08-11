@@ -16,7 +16,9 @@ module.exports = grammar({
 
   rules: {
     template: ($) =>
-      repeat(choice($.statement_directive, $.html_element, $.content)),
+      repeat(
+        choice($.statement_directive, $.html_element, $.html_doctype, $.content)
+      ),
 
     content: () => prec.right(repeat1(/[^\s\{<]+/)),
 
@@ -61,6 +63,8 @@ module.exports = grammar({
         seq('"', $.html_attribute_value, '"'),
         seq("'", $.html_attribute_value, "'")
       ),
+
+    html_doctype: () => /<!(?:DOCTYPE|doctype)[\s\S]*?>/,
 
     text: () => /[^<{]+/,
 
