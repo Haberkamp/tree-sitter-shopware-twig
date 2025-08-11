@@ -143,6 +143,24 @@ Lowercase doctype
 (template
   (html_doctype))
 
+==============================
+Named entities in tag contents
+==============================
+
+<p>Lorem ipsum &nbsp; dolor sit &copy; amet.</p>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (content)
+    (html_entity)
+    (content)
+    (html_entity)
+    (content)
+    (html_end_tag (html_tag_name))))
+
 ================================
 Numeric entities in tag contents
 ================================
