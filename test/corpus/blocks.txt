@@ -6,7 +6,7 @@ Empty Twig block
 
 ---
 
-(source_file
+(template
   (statement_directive
     (tag_statement
       (tag)
@@ -25,7 +25,7 @@ Nested Twig blocks
 
 ---
 
-(source_file
+(template
   (statement_directive
     (tag_statement
       (tag)
@@ -51,7 +51,7 @@ Twig blocks with content
 
 ---
 
-(source_file
+(template
   (statement_directive
     (tag_statement
       (tag)
@@ -71,7 +71,7 @@ If statement
 
 ---
 
-(source_file
+(template
   (statement_directive
     (if_statement
       (conditional)
@@ -91,7 +91,7 @@ Parent
 
 ---
 
-(source_file
+(template
   (statement_directive
     (tag_statement
       (tag)

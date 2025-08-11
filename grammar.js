@@ -13,8 +13,6 @@ module.exports = grammar({
   extras: () => [/\s/],
 
   rules: {
-    source_file: ($) => repeat(choice($.statement_directive, $.content)),
-
     template: ($) => repeat(choice($.statement_directive, $.content)),
 
     content: () => prec.right(repeat1(/[^\s\{]+/)),
