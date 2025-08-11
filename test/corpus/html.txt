@@ -233,6 +233,28 @@ Multiple entities in tag contents
     (content)
     (html_end_tag (html_tag_name))))
 
+======================================
+DT and DL elements without close tags
+======================================
+<dl>
+  <dt>Coffee
+  <dt>Café
+  <dd>Black hot drink
+  <dt>Milk
+  <dd>White cold drink
+</dl>
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_end_tag (html_tag_name))))
+
 =========================================
 TR, TD, and TH elements without end tags
 =========================================
