@@ -270,8 +270,8 @@ static bool scan_implicit_end_tag(Scanner *scanner, TSLexer *lexer) {
   scan_tag_name(lexer, &tag_name);
   if (tag_name.size == 0) {
     array_delete(&tag_name);
-    // At EOF, close void elements
-    if (lexer->eof(lexer) && parent && tag_is_void(parent)) {
+    // At EOF, close any open element
+    if (lexer->eof(lexer) && parent) {
       pop_tag(scanner);
       lexer->result_symbol = IMPLICIT_END_TAG;
       return true;

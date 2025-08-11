@@ -297,3 +297,20 @@ TR, TD, and TH elements without end tags
       (html_element (html_start_tag (html_tag_name)) (content))
       (html_element (html_start_tag (html_tag_name)) (content)))
     (html_end_tag (html_tag_name))))
+
+==================================
+Omitted end tags for html and head
+==================================
+
+<!doctype html><html><head>
+
+---
+
+(template
+  (html_doctype)
+  (html_element
+    (html_start_tag
+      (html_tag_name))
+    (html_element
+      (html_start_tag
+        (html_tag_name)))))

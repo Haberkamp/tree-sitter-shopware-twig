@@ -91,7 +91,14 @@ module.exports = grammar({
         seq("'", $.html_attribute_value, "'")
       ),
 
-    html_doctype: () => /<!(?:DOCTYPE|doctype)[\s\S]*?>/,
+    html_doctype: ($) => seq(
+      '<!',
+      alias($._doctype, 'doctype'),
+      /[^>]+/,
+      '>',
+    ),
+
+    _doctype: () => /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
 
     statement_directive: ($) =>
       seq(

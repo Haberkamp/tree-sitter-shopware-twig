@@ -48,6 +48,11 @@
     }
   },
   {
+    "type": "html_doctype",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "html_element",
     "named": true,
     "fields": {},
@@ -295,6 +300,10 @@
     "named": false
   },
   {
+    "type": "<!",
+    "named": false
+  },
+  {
     "type": "</",
     "named": false
   },
@@ -308,6 +317,10 @@
   },
   {
     "type": "block",
+    "named": false
+  },
+  {
+    "type": "doctype",
     "named": false
   },
   {
@@ -328,10 +341,6 @@
   },
   {
     "type": "html_attribute_value",
-    "named": true
-  },
-  {
-    "type": "html_doctype",
     "named": true
   },
   {
