@@ -83,20 +83,15 @@ module.exports = grammar({
 
     html_attribute_name: () => /[a-zA-Z][a-zA-Z0-9_\-💩]*/,
 
-    html_attribute_value: () => /[^>\s"']+/,
+    html_attribute_value: () => /[^>\s"'=]+/,
 
     html_quoted_attribute_value: ($) =>
       choice(
-        seq('"', $.html_attribute_value, '"'),
-        seq("'", $.html_attribute_value, "'")
+        seq('"', alias(/[^"]*/, $.html_attribute_value), '"'),
+        seq("'", alias(/[^']*/, $.html_attribute_value), "'")
       ),
 
-    html_doctype: ($) => seq(
-      '<!',
-      alias($._doctype, 'doctype'),
-      /[^>]+/,
-      '>',
-    ),
+    html_doctype: ($) => seq("<!", alias($._doctype, "doctype"), /[^>]+/, ">"),
 
     _doctype: () => /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
 

@@ -239,7 +239,7 @@
     },
     "html_attribute_value": {
       "type": "PATTERN",
-      "value": "[^>\\s\"']+"
+      "value": "[^>\\s\"'=]+"
     },
     "html_quoted_attribute_value": {
       "type": "CHOICE",
@@ -252,8 +252,13 @@
               "value": "\""
             },
             {
-              "type": "SYMBOL",
-              "name": "html_attribute_value"
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[^\"]*"
+              },
+              "named": true,
+              "value": "html_attribute_value"
             },
             {
               "type": "STRING",
@@ -269,8 +274,13 @@
               "value": "'"
             },
             {
-              "type": "SYMBOL",
-              "name": "html_attribute_value"
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[^']*"
+              },
+              "named": true,
+              "value": "html_attribute_value"
             },
             {
               "type": "STRING",

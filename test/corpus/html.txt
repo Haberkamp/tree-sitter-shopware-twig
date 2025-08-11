@@ -298,6 +298,40 @@ TR, TD, and TH elements without end tags
       (html_element (html_start_tag (html_tag_name)) (content)))
     (html_end_tag (html_tag_name))))
 
+=======================================
+COLGROUP elements without end tags
+=======================================
+<table>
+  <colgroup>
+    <col style="background-color: #0f0">
+    <col span="2">
+  <tr>
+    <th>Lime</th>
+    <th>Lemon</th>
+    <th>Orange</th>
+  </tr>
+</table>
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element
+      (html_start_tag (html_tag_name))
+      (html_element (html_start_tag
+        (html_tag_name)
+        (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value)))))
+      (html_element (html_start_tag
+        (html_tag_name)
+        (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
+    (html_element
+      (html_start_tag (html_tag_name))
+      (html_element (html_start_tag (html_tag_name)) (content) (html_end_tag (html_tag_name)))
+      (html_element (html_start_tag (html_tag_name)) (content) (html_end_tag (html_tag_name)))
+      (html_element (html_start_tag (html_tag_name)) (content) (html_end_tag (html_tag_name)))
+      (html_end_tag (html_tag_name)))
+    (html_end_tag (html_tag_name))))
+
 ==================================
 Omitted end tags for html and head
 ==================================
