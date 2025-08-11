@@ -85,3 +85,17 @@ Void tags
         (html_attribute (html_attribute_name) (html_attribute_value))
         (html_attribute (html_attribute_name) (html_attribute_value))))
     (html_end_tag (html_tag_name))))
+
+==================================
+Void tags at EOF
+==================================
+
+<img src="something.png">
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
