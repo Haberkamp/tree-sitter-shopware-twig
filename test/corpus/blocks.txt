@@ -97,7 +97,9 @@ Parent
       (tag)
       (variable)))
   (statement_directive
-    (parent_statement))
+    (function_call
+      (function_identifier)
+      (arguments)))
   (statement_directive
     (tag_statement
       (tag))))

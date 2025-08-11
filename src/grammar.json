@@ -340,7 +340,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "parent_statement"
+              "name": "function_call"
             }
           ]
         },
@@ -423,13 +423,26 @@
       "type": "PATTERN",
       "value": "[a-zA-Z0-9_]+"
     },
-    "parent_statement": {
+    "function_call": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "parent"
+          "type": "SYMBOL",
+          "name": "function_identifier"
         },
+        {
+          "type": "SYMBOL",
+          "name": "arguments"
+        }
+      ]
+    },
+    "function_identifier": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+    },
+    "arguments": {
+      "type": "SEQ",
+      "members": [
         {
           "type": "STRING",
           "value": "("

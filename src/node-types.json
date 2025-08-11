@@ -1,5 +1,10 @@
 [
   {
+    "type": "arguments",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "conditional",
     "named": true,
     "fields": {}
@@ -19,6 +24,25 @@
       "types": [
         {
           "type": "erroneous_end_tag_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "function_identifier",
           "named": true
         }
       ]
@@ -180,11 +204,6 @@
     }
   },
   {
-    "type": "parent_statement",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "statement_directive",
     "named": true,
     "fields": {},
@@ -193,11 +212,11 @@
       "required": true,
       "types": [
         {
-          "type": "if_statement",
+          "type": "function_call",
           "named": true
         },
         {
-          "type": "parent_statement",
+          "type": "if_statement",
           "named": true
         },
         {
@@ -336,6 +355,10 @@
     "named": true
   },
   {
+    "type": "function_identifier",
+    "named": true
+  },
+  {
     "type": "html_attribute_name",
     "named": true
   },
@@ -349,10 +372,6 @@
   },
   {
     "type": "if",
-    "named": false
-  },
-  {
-    "type": "parent",
     "named": false
   },
   {

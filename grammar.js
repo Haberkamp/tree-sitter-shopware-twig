@@ -96,11 +96,7 @@ module.exports = grammar({
     _doctype: () => /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
 
     statement_directive: ($) =>
-      seq(
-        "{%",
-        choice($.if_statement, $.tag_statement, $.parent_statement),
-        "%}"
-      ),
+      seq("{%", choice($.if_statement, $.tag_statement, $.function_call), "%}"),
 
     if_statement: ($) => seq($.conditional, $.variable),
 
@@ -113,7 +109,11 @@ module.exports = grammar({
 
     variable: ($) => /[a-zA-Z0-9_]+/,
 
-    parent_statement: ($) => seq("parent", "(", ")"),
+    function_call: ($) => seq($.function_identifier, $.arguments),
+
+    function_identifier: () => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    arguments: ($) => seq("(", ")"),
 
     html_entity: () =>
       choice(
