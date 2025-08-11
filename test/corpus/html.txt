@@ -232,3 +232,29 @@ Multiple entities in tag contents
     (html_entity)
     (content)
     (html_end_tag (html_tag_name))))
+
+=========================================
+TR, TD, and TH elements without end tags
+=========================================
+<table>
+  <tr>
+    <th>One
+    <th>Two
+  <tr>
+    <td>Three
+    <td>Four
+</table>
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element
+      (html_start_tag (html_tag_name))
+      (html_element (html_start_tag (html_tag_name)) (content))
+      (html_element (html_start_tag (html_tag_name)) (content)))
+    (html_element
+      (html_start_tag (html_tag_name))
+      (html_element (html_start_tag (html_tag_name)) (content))
+      (html_element (html_start_tag (html_tag_name)) (content)))
+    (html_end_tag (html_tag_name))))

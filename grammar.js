@@ -12,7 +12,15 @@ module.exports = grammar({
 
   extras: () => [/\s/],
 
-  conflicts: ($) => [[$.html_element]],
+  externals: ($) => [
+    $._start_tag_name,
+    $._end_tag_name,
+    $.erroneous_end_tag_name,
+    "/>",
+    $._implicit_end_tag,
+    $.raw_text,
+    $.comment,
+  ],
 
   rules: {
     template: ($) =>
@@ -22,33 +30,45 @@ module.exports = grammar({
           $.html_element,
           $.html_doctype,
           $.html_entity,
-          $.content
+          $.content,
+          $.erroneous_end_tag
         )
       ),
 
-    content: () => prec.right(repeat1(/[^\s\{<&]+/)),
+    content: () => prec.right(/[^<>&\{\s]([^<>&\{]*[^<>&\{\s])?/),
 
     html_element: ($) =>
       choice(
         seq(
           $.html_start_tag,
-          repeat(choice($.html_element, $.html_entity, $.content)),
-          $.html_end_tag
+          repeat($._node),
+          choice($.html_end_tag, $._implicit_end_tag)
         ),
-        $.html_self_closing_tag,
-        seq($.html_start_tag, repeat1(choice($.html_entity, $.content))),
-        $.html_start_tag
+        $.html_self_closing_tag
       ),
 
-    html_start_tag: ($) =>
-      seq("<", $.html_tag_name, repeat($.html_attribute), ">"),
+    _node: ($) => choice($.html_element, $.html_entity, $.content),
 
-    html_end_tag: ($) => seq("</", $.html_tag_name, ">"),
+    html_start_tag: ($) =>
+      seq(
+        "<",
+        alias($._start_tag_name, $.html_tag_name),
+        repeat($.html_attribute),
+        ">"
+      ),
+
+    html_end_tag: ($) =>
+      seq("</", alias($._end_tag_name, $.html_tag_name), ">"),
 
     html_self_closing_tag: ($) =>
-      seq("<", $.html_tag_name, repeat($.html_attribute), "/", ">"),
+      seq(
+        "<",
+        alias($._start_tag_name, $.html_tag_name),
+        repeat($.html_attribute),
+        "/>"
+      ),
 
-    html_tag_name: () => /[a-zA-Z][a-zA-Z0-9:_-]*/,
+    erroneous_end_tag: ($) => seq("</", $.erroneous_end_tag_name, ">"),
 
     html_attribute: ($) =>
       seq(
@@ -72,8 +92,6 @@ module.exports = grammar({
       ),
 
     html_doctype: () => /<!(?:DOCTYPE|doctype)[\s\S]*?>/,
-
-    text: () => /[^<{]+/,
 
     statement_directive: ($) =>
       seq(
