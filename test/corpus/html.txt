@@ -11,3 +11,25 @@ Tags
     (html_start_tag (html_tag_name))
     (text)
     (html_end_tag (html_tag_name))))
+
+===================================
+Tags with attributes
+===================================
+
+<input value=yes class="a" data-💩></input>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_attribute_value))
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value)))
+      (html_attribute
+        (html_attribute_name)))
+    (html_end_tag (html_tag_name))))
