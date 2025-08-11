@@ -82,6 +82,31 @@
           "name": "html_self_closing_tag"
         },
         {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "html_start_tag"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "html_entity"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "content"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "html_start_tag"
         }

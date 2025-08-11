@@ -36,6 +36,7 @@ module.exports = grammar({
           $.html_end_tag
         ),
         $.html_self_closing_tag,
+        seq($.html_start_tag, repeat1(choice($.html_entity, $.content))),
         $.html_start_tag
       ),
 

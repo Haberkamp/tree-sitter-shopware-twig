@@ -143,6 +143,23 @@ Lowercase doctype
 (template
   (html_doctype))
 
+======================================
+Ruby annotation elements without close tags
+======================================
+
+<ruby>東<rb>京<rt>とう<rt>きょう</ruby>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (content)
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_end_tag (html_tag_name))))
+
 ==============================
 Named entities in tag contents
 ==============================
