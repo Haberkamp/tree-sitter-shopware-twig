@@ -13,6 +13,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "html_element"
+          },
+          {
+            "type": "SYMBOL",
             "name": "content"
           }
         ]
@@ -25,9 +29,76 @@
         "type": "REPEAT1",
         "content": {
           "type": "PATTERN",
-          "value": "[^\\s\\{]+"
+          "value": "[^\\s\\{<]+"
         }
       }
+    },
+    "html_element": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "html_start_tag"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "text"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "html_end_tag"
+        }
+      ]
+    },
+    "html_start_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "html_tag_name"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "html_end_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "</"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "html_tag_name"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "html_tag_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z][a-zA-Z0-9]*"
+    },
+    "text": {
+      "type": "PATTERN",
+      "value": "[^<{]+"
     },
     "statement_directive": {
       "type": "SEQ",
