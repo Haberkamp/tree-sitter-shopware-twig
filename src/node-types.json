@@ -41,15 +41,19 @@
       "required": true,
       "types": [
         {
+          "type": "content",
+          "named": true
+        },
+        {
+          "type": "html_element",
+          "named": true
+        },
+        {
           "type": "html_end_tag",
           "named": true
         },
         {
           "type": "html_start_tag",
-          "named": true
-        },
-        {
-          "type": "text",
           "named": true
         }
       ]
@@ -270,10 +274,6 @@
   {
     "type": "parent",
     "named": false
-  },
-  {
-    "type": "text",
-    "named": true
   },
   {
     "type": "variable",

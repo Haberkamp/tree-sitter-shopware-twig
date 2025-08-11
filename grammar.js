@@ -19,7 +19,11 @@ module.exports = grammar({
     content: () => prec.right(repeat1(/[^\s\{<]+/)),
 
     html_element: ($) =>
-      seq($.html_start_tag, optional($.text), $.html_end_tag),
+      seq(
+        $.html_start_tag,
+        repeat(choice($.html_element, $.content)),
+        $.html_end_tag
+      ),
 
     html_start_tag: ($) =>
       seq("<", $.html_tag_name, repeat($.html_attribute), ">"),

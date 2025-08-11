@@ -9,7 +9,7 @@ Tags
 (template
   (html_element
     (html_start_tag (html_tag_name))
-    (text)
+    (content)
     (html_end_tag (html_tag_name))))
 
 ===================================
@@ -32,4 +32,33 @@ Tags with attributes
         (html_quoted_attribute_value (html_attribute_value)))
       (html_attribute
         (html_attribute_name)))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Nested tags
+===================================
+
+<div>
+  <span>a</span>
+  b
+  <b>c</b>
+  Multi-line
+  text
+</div>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element
+      (html_start_tag (html_tag_name))
+      (content)
+      (html_end_tag (html_tag_name)))
+    (content)
+    (html_element
+      (html_start_tag (html_tag_name))
+      (content)
+      (html_end_tag (html_tag_name)))
+    (content)
     (html_end_tag (html_tag_name))))
