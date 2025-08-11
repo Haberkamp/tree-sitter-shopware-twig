@@ -99,3 +99,24 @@ Void tags at EOF
     (html_start_tag
       (html_tag_name)
       (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
+
+==================================
+Custom tags
+==================================
+
+<something:different>
+  <atom-text-editor mini>
+    Hello
+  </atom-text-editor>
+</something:different>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element
+      (html_start_tag (html_tag_name) (html_attribute (html_attribute_name)))
+      (content)
+      (html_end_tag (html_tag_name)))
+    (html_end_tag (html_tag_name))))

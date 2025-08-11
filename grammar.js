@@ -39,7 +39,7 @@ module.exports = grammar({
     html_self_closing_tag: ($) =>
       seq("<", $.html_tag_name, repeat($.html_attribute), "/", ">"),
 
-    html_tag_name: () => /[a-zA-Z][a-zA-Z0-9]*/,
+    html_tag_name: () => /[a-zA-Z][a-zA-Z0-9:_-]*/,
 
     html_attribute: ($) =>
       seq(

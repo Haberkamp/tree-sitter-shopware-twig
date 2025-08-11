@@ -146,7 +146,7 @@
     },
     "html_tag_name": {
       "type": "PATTERN",
-      "value": "[a-zA-Z][a-zA-Z0-9]*"
+      "value": "[a-zA-Z][a-zA-Z0-9:_-]*"
     },
     "html_attribute": {
       "type": "SEQ",
