@@ -35,6 +35,12 @@ typedef enum {
   P,
   DIV,
   SPAN,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
   SCRIPT,
   STYLE,
   COLGROUP,
@@ -90,10 +96,17 @@ static TagType tag_type_for_name(const char *name, size_t len) {
     if (memcmp(name, "RB", 2) == 0) return RB;
     if (memcmp(name, "RT", 2) == 0) return RT;
     if (memcmp(name, "RP", 2) == 0) return RP;
+    if (memcmp(name, "H1", 2) == 0) return H1;
+    if (memcmp(name, "H2", 2) == 0) return H2;
+    if (memcmp(name, "H3", 2) == 0) return H3;
+    if (memcmp(name, "H4", 2) == 0) return H4;
+    if (memcmp(name, "H5", 2) == 0) return H5;
+    if (memcmp(name, "H6", 2) == 0) return H6;
   } else if (len == 1) {
     if (memcmp(name, "P", 1) == 0) return P;
   } else if (len == 3) {
     if (memcmp(name, "COL", 3) == 0) return COL;
+    if (memcmp(name, "DIV", 3) == 0) return DIV;
   } else if (len == 4) {
     if (memcmp(name, "HTML", 4) == 0) return HTML;
     if (memcmp(name, "HEAD", 4) == 0) return HEAD;
@@ -188,7 +201,9 @@ static bool tag_can_contain(const Tag *parent, const Tag *child) {
       return child->type != DT && child->type != DD;
     case P:
       // P elements cannot contain block-level elements
-      return child->type != P && child->type != DIV && child->type != TABLE;
+      return child->type != P && child->type != DIV && child->type != TABLE && 
+             child->type != H1 && child->type != H2 && child->type != H3 &&
+             child->type != H4 && child->type != H5 && child->type != H6;
     default:
       return true;
   }

@@ -255,6 +255,23 @@ DT and DL elements without close tags
     (html_element (html_start_tag (html_tag_name)) (content))
     (html_end_tag (html_tag_name))))
 
+======================================
+P elements without close tags
+======================================
+<p>One
+<div>Two</div>
+<p>Three
+<p>Four
+<h1>Five</h1>
+---
+
+(template
+  (html_element (html_start_tag (html_tag_name)) (content))
+  (html_element (html_start_tag (html_tag_name)) (content) (html_end_tag (html_tag_name)))
+  (html_element (html_start_tag (html_tag_name)) (content))
+  (html_element (html_start_tag (html_tag_name)) (content))
+  (html_element (html_start_tag (html_tag_name)) (content) (html_end_tag (html_tag_name))))
+
 =========================================
 TR, TD, and TH elements without end tags
 =========================================
