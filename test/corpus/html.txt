@@ -143,6 +143,24 @@ Lowercase doctype
 (template
   (html_doctype))
 
+==================================
+LI elements without close tags
+==================================
+
+<ul>
+  <li>One
+  <li>Two
+</ul>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_element (html_start_tag (html_tag_name)) (content))
+    (html_end_tag (html_tag_name))))
+
 ======================================
 Ruby annotation elements without close tags
 ======================================
