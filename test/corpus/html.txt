@@ -142,3 +142,22 @@ Lowercase doctype
 
 (template
   (html_doctype))
+
+=================================
+Multiple entities in tag contents
+=================================
+
+<p>Lorem ipsum &#xA0; dolor &#xa0; sit &nbsp; amet.</p>
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (content)
+    (html_entity)
+    (content)
+    (html_entity)
+    (content)
+    (html_entity)
+    (content)
+    (html_end_tag (html_tag_name))))

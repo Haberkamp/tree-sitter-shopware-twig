@@ -53,6 +53,10 @@
           "named": true
         },
         {
+          "type": "html_entity",
+          "named": true
+        },
+        {
           "type": "html_self_closing_tag",
           "named": true
         },
@@ -77,6 +81,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "html_entity",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "html_quoted_attribute_value",
@@ -225,6 +234,10 @@
         },
         {
           "type": "html_element",
+          "named": true
+        },
+        {
+          "type": "html_entity",
           "named": true
         },
         {

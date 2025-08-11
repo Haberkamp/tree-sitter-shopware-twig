@@ -17,16 +17,22 @@ module.exports = grammar({
   rules: {
     template: ($) =>
       repeat(
-        choice($.statement_directive, $.html_element, $.html_doctype, $.content)
+        choice(
+          $.statement_directive,
+          $.html_element,
+          $.html_doctype,
+          $.html_entity,
+          $.content
+        )
       ),
 
-    content: () => prec.right(repeat1(/[^\s\{<]+/)),
+    content: () => prec.right(repeat1(/[^\s\{<&]+/)),
 
     html_element: ($) =>
       choice(
         seq(
           $.html_start_tag,
-          repeat(choice($.html_element, $.content)),
+          repeat(choice($.html_element, $.html_entity, $.content)),
           $.html_end_tag
         ),
         $.html_self_closing_tag,
@@ -87,5 +93,12 @@ module.exports = grammar({
     variable: ($) => /[a-zA-Z0-9_]+/,
 
     parent_statement: ($) => seq("parent", "(", ")"),
+
+    html_entity: () =>
+      choice(
+        /&[a-zA-Z][a-zA-Z0-9]*;/, // Named entities like &nbsp;
+        /&#[0-9]+;/, // Numeric entities like &#160;
+        /&#[xX][0-9a-fA-F]+;/ // Hex entities like &#xA0;
+      ),
   },
 });

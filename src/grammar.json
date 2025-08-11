@@ -21,6 +21,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "html_entity"
+          },
+          {
+            "type": "SYMBOL",
             "name": "content"
           }
         ]
@@ -33,7 +37,7 @@
         "type": "REPEAT1",
         "content": {
           "type": "PATTERN",
-          "value": "[^\\s\\{<]+"
+          "value": "[^\\s\\{<&]+"
         }
       }
     },
@@ -55,6 +59,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "html_element"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "html_entity"
                   },
                   {
                     "type": "SYMBOL",
@@ -363,6 +371,23 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "html_entity": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "&[a-zA-Z][a-zA-Z0-9]*;"
+        },
+        {
+          "type": "PATTERN",
+          "value": "&#[0-9]+;"
+        },
+        {
+          "type": "PATTERN",
+          "value": "&#[xX][0-9a-fA-F]+;"
         }
       ]
     }
