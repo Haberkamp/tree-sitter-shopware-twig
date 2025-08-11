@@ -62,3 +62,26 @@ Nested tags
       (html_end_tag (html_tag_name)))
     (content)
     (html_end_tag (html_tag_name))))
+
+==================================
+Void tags
+==================================
+
+<form><img src="something.png"><br><input type=submit value=Ok /></form>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value)))))
+    (html_element (html_start_tag (html_tag_name)))
+    (html_element
+      (html_self_closing_tag
+        (html_tag_name)
+        (html_attribute (html_attribute_name) (html_attribute_value))
+        (html_attribute (html_attribute_name) (html_attribute_value))))
+    (html_end_tag (html_tag_name))))

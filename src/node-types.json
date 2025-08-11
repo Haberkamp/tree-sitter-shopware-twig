@@ -53,6 +53,10 @@
           "named": true
         },
         {
+          "type": "html_self_closing_tag",
+          "named": true
+        },
+        {
           "type": "html_start_tag",
           "named": true
         }
@@ -84,6 +88,25 @@
       "types": [
         {
           "type": "html_attribute_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "html_self_closing_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "html_attribute",
+          "named": true
+        },
+        {
+          "type": "html_tag_name",
           "named": true
         }
       ]
@@ -225,6 +248,10 @@
   },
   {
     "type": ")",
+    "named": false
+  },
+  {
+    "type": "/",
     "named": false
   },
   {

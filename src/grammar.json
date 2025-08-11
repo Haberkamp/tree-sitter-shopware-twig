@@ -34,31 +34,44 @@
       }
     },
     "html_element": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "html_start_tag"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "html_element"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "content"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "html_end_tag"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "html_self_closing_tag"
+        },
         {
           "type": "SYMBOL",
           "name": "html_start_tag"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "html_element"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "content"
-              }
-            ]
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "html_end_tag"
         }
       ]
     },
@@ -96,6 +109,34 @@
         {
           "type": "SYMBOL",
           "name": "html_tag_name"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "html_self_closing_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "html_tag_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "html_attribute"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "/"
         },
         {
           "type": "STRING",
@@ -324,7 +365,11 @@
       "value": "\\s"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "html_element"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [],

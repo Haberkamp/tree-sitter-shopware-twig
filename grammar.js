@@ -12,6 +12,8 @@ module.exports = grammar({
 
   extras: () => [/\s/],
 
+  conflicts: ($) => [[$.html_element]],
+
   rules: {
     template: ($) =>
       repeat(choice($.statement_directive, $.html_element, $.content)),
@@ -19,16 +21,23 @@ module.exports = grammar({
     content: () => prec.right(repeat1(/[^\s\{<]+/)),
 
     html_element: ($) =>
-      seq(
-        $.html_start_tag,
-        repeat(choice($.html_element, $.content)),
-        $.html_end_tag
+      choice(
+        seq(
+          $.html_start_tag,
+          repeat(choice($.html_element, $.content)),
+          $.html_end_tag
+        ),
+        $.html_self_closing_tag,
+        $.html_start_tag
       ),
 
     html_start_tag: ($) =>
       seq("<", $.html_tag_name, repeat($.html_attribute), ">"),
 
     html_end_tag: ($) => seq("</", $.html_tag_name, ">"),
+
+    html_self_closing_tag: ($) =>
+      seq("<", $.html_tag_name, repeat($.html_attribute), "/", ">"),
 
     html_tag_name: () => /[a-zA-Z][a-zA-Z0-9]*/,
 
