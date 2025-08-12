@@ -3,7 +3,6 @@ name: Publish package
 on:
   push:
     tags: ["*"]
-    branches: [main]
 
 concurrency:
   group: ${{github.workflow}}-${{github.ref}}
