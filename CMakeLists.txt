@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-shopware-twig
-        VERSION "0.2.2"
+        VERSION "0.2.3"
         DESCRIPTION "A parser for Shopware 6 Twig"
         HOMEPAGE_URL "https://www.github.com/haberkamp/tree-sitter-shopware-twig"
         LANGUAGES C)

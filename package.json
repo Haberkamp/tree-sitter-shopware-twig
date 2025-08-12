@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-shopware-twig",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A parser for Shopware 6 Twig",
   "repository": "https://www.github.com/haberkamp/tree-sitter-shopware-twig",
   "license": "MIT",
