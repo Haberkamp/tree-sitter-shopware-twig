@@ -28,4 +28,4 @@ Hey, I'm Nils. In my spare time [I write about things](https://www.haberkamp.dev
 
 ## Feedback and Contributing
 
-I highly appreceate your feedback! Please create an [issue](https://github.com/Haberkamp/stable-spin/issues/new), if you've found any bugs or want to request a feature.
+I highly appreceate your feedback! Please create an [issue](https://github.com/Haberkamp/tree-sitter-shopware-twig/issues/new), if you've found any bugs or want to request a feature.
