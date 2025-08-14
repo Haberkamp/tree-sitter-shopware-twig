@@ -16,23 +16,23 @@ Tags
 Tags with attributes
 ===================================
 
-<input value=yes class="a" data-💩></input>
+<input value=yes class="a" data-💩>
 
 ---
 
 (template
   (html_element
-    (html_start_tag
-      (html_tag_name)
-      (html_attribute
-        (html_attribute_name)
-        (html_attribute_value))
-      (html_attribute
-        (html_attribute_name)
-        (html_quoted_attribute_value (html_attribute_value)))
-      (html_attribute
-        (html_attribute_name)))
-    (html_end_tag (html_tag_name))))
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_attribute_value))
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value)))
+        (html_attribute
+          (html_attribute_name))))))
 
 ===================================
 Nested tags
@@ -75,10 +75,13 @@ Void tags
   (html_element
     (html_start_tag (html_tag_name))
     (html_element
-      (html_start_tag
-        (html_tag_name)
-        (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value)))))
-    (html_element (html_start_tag (html_tag_name)))
+      (html_void_tag
+        (html_start_tag
+          (html_tag_name)
+          (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
+    (html_element
+      (html_void_tag
+        (html_start_tag (html_tag_name))))
     (html_element
       (html_self_closing_tag
         (html_tag_name)
@@ -96,9 +99,10 @@ Void tags at EOF
 
 (template
   (html_element
-    (html_start_tag
-      (html_tag_name)
-      (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value)))))))
 
 ==================================
 Custom tags
@@ -318,12 +322,16 @@ COLGROUP elements without end tags
     (html_start_tag (html_tag_name))
     (html_element
       (html_start_tag (html_tag_name))
-      (html_element (html_start_tag
-        (html_tag_name)
-        (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value)))))
-      (html_element (html_start_tag
-        (html_tag_name)
-        (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
+      (html_element
+        (html_void_tag
+          (html_start_tag
+            (html_tag_name)
+            (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
+      (html_element
+        (html_void_tag
+          (html_start_tag
+            (html_tag_name)
+            (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value)))))))
     (html_element
       (html_start_tag (html_tag_name))
       (html_element (html_start_tag (html_tag_name)) (content) (html_end_tag (html_tag_name)))
@@ -346,5 +354,6 @@ Omitted end tags for html and head
     (html_start_tag
       (html_tag_name))
     (html_element
-      (html_start_tag
-        (html_tag_name)))))
+      (html_void_tag
+        (html_start_tag
+          (html_tag_name))))))

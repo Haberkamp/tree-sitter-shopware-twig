@@ -103,3 +103,27 @@ Parent
   (statement_directive
     (tag_statement
       (tag))))
+
+===
+Text content after void tag
+===
+
+<body>
+  <input type="text">
+
+  This is some content
+</body>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (html_element
+      (html_void_tag
+        (html_start_tag
+          (html_tag_name)
+          (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
+    (content)
+    (html_end_tag (html_tag_name))))
+    

@@ -147,20 +147,21 @@ static bool tag_is_void(const Tag *tag) {
         const char *name = tag->custom_tag_name.contents;
         size_t len = tag->custom_tag_name.size;
         
-        // Common void elements
-        if ((len == 3 && memcmp(name, "IMG", 3) == 0) ||
-            (len == 2 && memcmp(name, "BR", 2) == 0) ||
-            (len == 5 && memcmp(name, "INPUT", 5) == 0) ||
-            (len == 4 && memcmp(name, "AREA", 4) == 0) ||
-            (len == 4 && memcmp(name, "BASE", 4) == 0) ||
-            (len == 3 && memcmp(name, "WBR", 3) == 0) ||
-            (len == 5 && memcmp(name, "EMBED", 5) == 0) ||
-            (len == 2 && memcmp(name, "HR", 2) == 0) ||
-            (len == 4 && memcmp(name, "LINK", 4) == 0) ||
-            (len == 4 && memcmp(name, "META", 4) == 0) ||
-            (len == 5 && memcmp(name, "PARAM", 5) == 0) ||
-            (len == 6 && memcmp(name, "SOURCE", 6) == 0) ||
-            (len == 5 && memcmp(name, "TRACK", 5) == 0)) {
+        // Common void elements (case-insensitive check)
+        if ((len == 3 && (memcmp(name, "IMG", 3) == 0 || memcmp(name, "img", 3) == 0)) ||
+            (len == 2 && (memcmp(name, "BR", 2) == 0 || memcmp(name, "br", 2) == 0)) ||
+            (len == 5 && (memcmp(name, "INPUT", 5) == 0 || memcmp(name, "input", 5) == 0)) ||
+            (len == 4 && (memcmp(name, "AREA", 4) == 0 || memcmp(name, "area", 4) == 0)) ||
+            (len == 4 && (memcmp(name, "BASE", 4) == 0 || memcmp(name, "base", 4) == 0)) ||
+            (len == 3 && (memcmp(name, "WBR", 3) == 0 || memcmp(name, "wbr", 3) == 0)) ||
+            (len == 5 && (memcmp(name, "EMBED", 5) == 0 || memcmp(name, "embed", 5) == 0)) ||
+            (len == 2 && (memcmp(name, "HR", 2) == 0 || memcmp(name, "hr", 2) == 0)) ||
+            (len == 4 && (memcmp(name, "LINK", 4) == 0 || memcmp(name, "link", 4) == 0)) ||
+            (len == 4 && (memcmp(name, "META", 4) == 0 || memcmp(name, "meta", 4) == 0)) ||
+            (len == 5 && (memcmp(name, "PARAM", 5) == 0 || memcmp(name, "param", 5) == 0)) ||
+            (len == 6 && (memcmp(name, "SOURCE", 6) == 0 || memcmp(name, "source", 6) == 0)) ||
+            (len == 5 && (memcmp(name, "TRACK", 5) == 0 || memcmp(name, "track", 5) == 0)) ||
+            (len == 3 && (memcmp(name, "COL", 3) == 0 || memcmp(name, "col", 3) == 0))) {
           return true;
         }
       }
@@ -394,6 +395,9 @@ static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
       if ((valid_symbols[START_TAG_NAME] || valid_symbols[END_TAG_NAME])) {
         return valid_symbols[START_TAG_NAME] ? scan_start_tag_name(scanner, lexer)
                                              : scan_end_tag_name(scanner, lexer);
+      }
+      if (valid_symbols[IMPLICIT_END_TAG]) {
+        return scan_implicit_end_tag(scanner, lexer);
       }
   }
 

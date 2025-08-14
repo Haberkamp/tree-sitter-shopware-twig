@@ -46,6 +46,10 @@
       "type": "CHOICE",
       "members": [
         {
+          "type": "SYMBOL",
+          "name": "html_void_tag"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
@@ -77,6 +81,19 @@
         {
           "type": "SYMBOL",
           "name": "html_self_closing_tag"
+        }
+      ]
+    },
+    "html_void_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "html_start_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_implicit_end_tag"
         }
       ]
     },
@@ -477,7 +494,12 @@
       "value": "\\s"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "html_element",
+      "html_void_tag"
+    ]
+  ],
   "precedences": [],
   "externals": [
     {

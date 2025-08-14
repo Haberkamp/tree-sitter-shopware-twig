@@ -12,6 +12,8 @@ module.exports = grammar({
 
   extras: () => [/\s/],
 
+  conflicts: ($) => [[$.html_element, $.html_void_tag]],
+
   externals: ($) => [
     $._start_tag_name,
     $._end_tag_name,
@@ -39,6 +41,7 @@ module.exports = grammar({
 
     html_element: ($) =>
       choice(
+        $.html_void_tag,
         seq(
           $.html_start_tag,
           repeat($._node),
@@ -46,6 +49,8 @@ module.exports = grammar({
         ),
         $.html_self_closing_tag
       ),
+
+    html_void_tag: ($) => seq($.html_start_tag, $._implicit_end_tag),
 
     _node: ($) => choice($.html_element, $.html_entity, $.content),
 
