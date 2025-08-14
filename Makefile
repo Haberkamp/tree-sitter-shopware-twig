@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-shopware-twig
 HOMEPAGE_URL := https://www.github.com/haberkamp/tree-sitter-shopware-twig
-VERSION := 0.2.4
+VERSION := 1.0.0
 
 # repository
 SRC_DIR := src
