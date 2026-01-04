@@ -4,6 +4,21 @@
 #include <wctype.h>
 #include <string.h>
 
+// ASCII-only character functions for cross-platform consistency
+// (iswalnum/towupper are locale-dependent and behave differently on Windows)
+static inline bool is_ascii_alphanumeric(int32_t c) {
+  return (c >= 'a' && c <= 'z') ||
+         (c >= 'A' && c <= 'Z') ||
+         (c >= '0' && c <= '9');
+}
+
+static inline int32_t ascii_toupper(int32_t c) {
+  if (c >= 'a' && c <= 'z') {
+    return c - 'a' + 'A';
+  }
+  return c;
+}
+
 enum TokenType {
   START_TAG_NAME,
   STYLE_START_TAG_NAME,
@@ -213,8 +228,8 @@ static bool tag_can_contain(const Tag *parent, const Tag *child) {
 
 static void scan_tag_name(TSLexer *lexer, Array(char) *tag_name) {
   array_clear(tag_name);
-  while (iswalnum(lexer->lookahead) || lexer->lookahead == '-' || lexer->lookahead == ':') {
-    array_push(tag_name, towupper(lexer->lookahead));
+  while (is_ascii_alphanumeric(lexer->lookahead) || lexer->lookahead == '-' || lexer->lookahead == ':') {
+    array_push(tag_name, ascii_toupper(lexer->lookahead));
     advance(lexer);
   }
 }
@@ -322,7 +337,7 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
   unsigned delimiter_index = 0;
 
   while (lexer->lookahead) {
-    if (towupper(lexer->lookahead) == end_delimiter[delimiter_index]) {
+    if (ascii_toupper(lexer->lookahead) == end_delimiter[delimiter_index]) {
       delimiter_index++;
       if (delimiter_index == strlen(end_delimiter)) break;
       advance(lexer);
