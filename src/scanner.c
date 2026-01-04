@@ -22,6 +22,7 @@ static inline int32_t ascii_toupper(int32_t c) {
 enum TokenType {
   START_TAG_NAME,
   STYLE_START_TAG_NAME,
+  SCRIPT_START_TAG_NAME,
   END_TAG_NAME,
   ERRONEOUS_END_TAG_NAME,
   SELF_CLOSING_TAG_DELIMITER,
@@ -413,10 +414,10 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
   if (scanner->tags.size == 0) return false;
 
   Tag *tag = array_back(&scanner->tags);
-  if (tag->type != STYLE) return false;
+  if (tag->type != STYLE && tag->type != SCRIPT) return false;
 
   lexer->mark_end(lexer);
-  const char *end_delimiter = "</STYLE";
+  const char *end_delimiter = tag->type == SCRIPT ? "</SCRIPT" : "</STYLE";
   unsigned delimiter_index = 0;
 
   while (lexer->lookahead) {
@@ -448,6 +449,9 @@ static bool scan_start_tag_name(Scanner *scanner, TSLexer *lexer) {
   array_push(&scanner->tags, tag);
 
   switch (tag.type) {
+    case SCRIPT:
+      lexer->result_symbol = SCRIPT_START_TAG_NAME;
+      break;
     case STYLE:
       lexer->result_symbol = STYLE_START_TAG_NAME;
       break;

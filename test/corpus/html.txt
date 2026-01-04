@@ -381,6 +381,76 @@ Raw text elements
     (raw_text)
     (html_end_tag (html_tag_name))))
 
+==================================
+Script elements
+==================================
+<script>
+  console.log("hello");
+</script>
+
+<script>
+  </ </s </sc </scr </scri </scrip
+</script>
+
+---
+
+(template
+  (script_element
+    (html_start_tag (html_tag_name))
+    (raw_text)
+    (html_end_tag (html_tag_name)))
+  (script_element
+    (html_start_tag (html_tag_name))
+    (raw_text)
+    (html_end_tag (html_tag_name))))
+
+==================================
+Script element with attributes
+==================================
+<script src="app.js" type="module"></script>
+
+---
+
+(template
+  (script_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value)))
+      (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))
+    (raw_text)
+    (html_end_tag (html_tag_name))))
+
+==================================
+Empty script element
+==================================
+<script></script>
+
+---
+
+(template
+  (script_element
+    (html_start_tag (html_tag_name))
+    (raw_text)
+    (html_end_tag (html_tag_name))))
+
+==================================
+Mixed style and script elements
+==================================
+<style>body { color: red; }</style>
+<script>console.log("test")</script>
+
+---
+
+(template
+  (style_element
+    (html_start_tag (html_tag_name))
+    (raw_text)
+    (html_end_tag (html_tag_name)))
+  (script_element
+    (html_start_tag (html_tag_name))
+    (raw_text)
+    (html_end_tag (html_tag_name))))
+
 ===================================
 Vue v-bind shorthand (:)
 ===================================
