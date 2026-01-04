@@ -242,6 +242,46 @@ tree-sitter test
 
 ---
 
+## Issue: Windows CI Failure
+
+### Symptom
+
+The "Ruby annotation elements without close tags" test failed only on Windows CI while passing on macOS and Linux:
+
+```
+<ruby>東<rb>京<rt>とう<rt>きょう</ruby>
+```
+
+### Root Cause
+
+The scanner used `iswalnum()` and `towupper()` from `<wctype.h>`. These functions are **locale-dependent** and behave differently across platforms:
+
+- **Windows**: Classifies Japanese characters (e.g., `東` U+6771) as alphanumeric per Unicode category (Lo = Letter, other)
+- **Linux/macOS** (default "C" locale): Only ASCII characters are alphanumeric
+
+This caused `scan_tag_name()` to incorrectly include `東` as part of a tag name on Windows, breaking the parse tree.
+
+### Fix
+
+Replace locale-dependent functions with ASCII-only equivalents:
+
+```c
+static inline bool is_ascii_alphanumeric(int32_t c) {
+  return (c >= 'a' && c <= 'z') ||
+         (c >= 'A' && c <= 'Z') ||
+         (c >= '0' && c <= '9');
+}
+
+static inline int32_t ascii_toupper(int32_t c) {
+  if (c >= 'a' && c <= 'z') return c - 'a' + 'A';
+  return c;
+}
+```
+
+HTML tag names are ASCII-only per spec, so this is both correct and cross-platform consistent.
+
+---
+
 ## Out of Scope
 
 - `script_element` (can add same way later)
