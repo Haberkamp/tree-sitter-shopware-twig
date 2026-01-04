@@ -16,6 +16,7 @@ module.exports = grammar({
 
   externals: ($) => [
     $._start_tag_name,
+    $._style_start_tag_name,
     $._end_tag_name,
     $.erroneous_end_tag_name,
     "/>",
@@ -30,6 +31,7 @@ module.exports = grammar({
         choice(
           $.statement_directive,
           $.html_element,
+          $.style_element,
           $.html_doctype,
           $.html_entity,
           $.content,
@@ -49,6 +51,16 @@ module.exports = grammar({
         ),
         $.html_self_closing_tag
       ),
+
+    style_element: ($) =>
+      seq(
+        alias($.style_start_tag, $.html_start_tag),
+        optional($.raw_text),
+        $.html_end_tag
+      ),
+
+    style_start_tag: ($) =>
+      seq("<", alias($._style_start_tag_name, $.html_tag_name), repeat($.html_attribute), ">"),
 
     html_void_tag: ($) => seq($.html_start_tag, $._implicit_end_tag),
 

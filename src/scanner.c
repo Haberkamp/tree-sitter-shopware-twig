@@ -4,8 +4,24 @@
 #include <wctype.h>
 #include <string.h>
 
+// ASCII-only character functions for cross-platform consistency
+// (iswalnum/towupper are locale-dependent and behave differently on Windows)
+static inline bool is_ascii_alphanumeric(int32_t c) {
+  return (c >= 'a' && c <= 'z') ||
+         (c >= 'A' && c <= 'Z') ||
+         (c >= '0' && c <= '9');
+}
+
+static inline int32_t ascii_toupper(int32_t c) {
+  if (c >= 'a' && c <= 'z') {
+    return c - 'a' + 'A';
+  }
+  return c;
+}
+
 enum TokenType {
   START_TAG_NAME,
+  STYLE_START_TAG_NAME,
   END_TAG_NAME,
   ERRONEOUS_END_TAG_NAME,
   SELF_CLOSING_TAG_DELIMITER,
@@ -212,8 +228,8 @@ static bool tag_can_contain(const Tag *parent, const Tag *child) {
 
 static void scan_tag_name(TSLexer *lexer, Array(char) *tag_name) {
   array_clear(tag_name);
-  while (iswalnum(lexer->lookahead) || lexer->lookahead == '-' || lexer->lookahead == ':') {
-    array_push(tag_name, towupper(lexer->lookahead));
+  while (is_ascii_alphanumeric(lexer->lookahead) || lexer->lookahead == '-' || lexer->lookahead == ':') {
+    array_push(tag_name, ascii_toupper(lexer->lookahead));
     advance(lexer);
   }
 }
@@ -310,6 +326,32 @@ static bool scan_implicit_end_tag(Scanner *scanner, TSLexer *lexer) {
   return false;
 }
 
+static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
+  if (scanner->tags.size == 0) return false;
+
+  Tag *tag = array_back(&scanner->tags);
+  if (tag->type != STYLE) return false;
+
+  lexer->mark_end(lexer);
+  const char *end_delimiter = "</STYLE";
+  unsigned delimiter_index = 0;
+
+  while (lexer->lookahead) {
+    if (ascii_toupper(lexer->lookahead) == end_delimiter[delimiter_index]) {
+      delimiter_index++;
+      if (delimiter_index == strlen(end_delimiter)) break;
+      advance(lexer);
+    } else {
+      delimiter_index = 0;
+      advance(lexer);
+      lexer->mark_end(lexer);
+    }
+  }
+
+  lexer->result_symbol = RAW_TEXT;
+  return true;
+}
+
 static bool scan_start_tag_name(Scanner *scanner, TSLexer *lexer) {
   Array(char) tag_name = array_new();
   scan_tag_name(lexer, &tag_name);
@@ -321,7 +363,15 @@ static bool scan_start_tag_name(Scanner *scanner, TSLexer *lexer) {
   Tag tag = tag_for_name(tag_name.contents, tag_name.size);
   array_delete(&tag_name);
   array_push(&scanner->tags, tag);
-  lexer->result_symbol = START_TAG_NAME;
+
+  switch (tag.type) {
+    case STYLE:
+      lexer->result_symbol = STYLE_START_TAG_NAME;
+      break;
+    default:
+      lexer->result_symbol = START_TAG_NAME;
+      break;
+  }
   return true;
 }
 
@@ -360,6 +410,10 @@ static bool scan_self_closing_tag_delimiter(Scanner *scanner, TSLexer *lexer) {
 }
 
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
+  if (valid_symbols[RAW_TEXT] && !valid_symbols[START_TAG_NAME] && !valid_symbols[END_TAG_NAME]) {
+    return scan_raw_text(scanner, lexer);
+  }
+
   while (iswspace(lexer->lookahead)) {
     skip(lexer);
   }
