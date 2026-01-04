@@ -357,3 +357,26 @@ Omitted end tags for html and head
       (html_void_tag
         (html_start_tag
           (html_tag_name))))))
+
+==================================
+Raw text elements
+==================================
+<style>
+  body { color: red; }
+</style>
+
+<style>
+  </ </s </st </sty </styl
+</style>
+
+---
+
+(template
+  (style_element
+    (html_start_tag (html_tag_name))
+    (raw_text)
+    (html_end_tag (html_tag_name)))
+  (style_element
+    (html_start_tag (html_tag_name))
+    (raw_text)
+    (html_end_tag (html_tag_name))))
