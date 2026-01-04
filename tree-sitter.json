@@ -8,6 +8,7 @@
       "scope": "source.shopware_twig",
       "file-types": ["shopware_twig"],
       "injection-regex": "^shopware_twig$",
+      "injections": "queries/injections.scm",
       "class-name": "TreeSitterShopwareTwig"
     }
   ],
