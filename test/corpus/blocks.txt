@@ -126,4 +126,135 @@ Text content after void tag
           (html_attribute (html_attribute_name) (html_quoted_attribute_value (html_attribute_value))))))
     (content)
     (html_end_tag (html_tag_name))))
-    
+
+===
+Twig comment
+===
+
+{# This is a comment #}
+
+---
+
+(template
+  (twig_comment))
+
+===
+Twig multiline comment
+===
+
+{# This is a
+   multiline comment #}
+
+---
+
+(template
+  (twig_comment))
+
+===
+Twig comment inside element
+===
+
+<div>{# comment #}</div>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (twig_comment)
+    (html_end_tag (html_tag_name))))
+
+===
+Twig comment with special chars
+===
+
+{# @deprecated tag:v6.8.0 - Use `mt-button` instead. #}
+
+---
+
+(template
+  (twig_comment))
+
+===
+Twig comment before block
+===
+
+{# Comment #}
+{% block foo %}{% endblock %}
+
+---
+
+(template
+  (twig_comment)
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (statement_directive
+    (tag_statement
+      (tag))))
+
+===
+Multiple twig comments on same line
+===
+
+{# first #}{# second #}
+
+---
+
+(template
+  (twig_comment)
+  (twig_comment))
+
+===
+Twig comment inline with text
+===
+
+<p>You can also comment out {# part of a line #}.</p>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (content)
+    (twig_comment)
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===
+Twig comment containing twig code
+===
+
+{# The following code will not be executed
+{% if category.posts %}
+  This category has posts
+{% endif %}
+#}
+
+---
+
+(template
+  (twig_comment))
+
+===
+Empty twig comment
+===
+
+{##}
+
+---
+
+(template
+  (twig_comment))
+
+===
+Twig comment with hash inside
+===
+
+{# This has a # hash inside #}
+
+---
+
+(template
+  (twig_comment))

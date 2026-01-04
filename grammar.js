@@ -29,6 +29,7 @@ module.exports = grammar({
     template: ($) =>
       repeat(
         choice(
+          $.twig_comment,
           $.statement_directive,
           $.html_element,
           $.style_element,
@@ -64,7 +65,7 @@ module.exports = grammar({
 
     html_void_tag: ($) => seq($.html_start_tag, $._implicit_end_tag),
 
-    _node: ($) => choice($.html_element, $.html_entity, $.content),
+    _node: ($) => choice($.twig_comment, $.html_element, $.html_entity, $.content),
 
     html_start_tag: ($) =>
       seq(
@@ -138,5 +139,7 @@ module.exports = grammar({
         /&#[0-9]+;/, // Numeric entities like &#160;
         /&#[xX][0-9a-fA-F]+;/ // Hex entities like &#xA0;
       ),
+
+    twig_comment: () => /\{#[^#]*(?:#[^}][^#]*)*?#\}/,
   },
 });

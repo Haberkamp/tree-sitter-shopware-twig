@@ -111,6 +111,10 @@
         {
           "type": "html_void_tag",
           "named": true
+        },
+        {
+          "type": "twig_comment",
+          "named": true
         }
       ]
     }
@@ -332,6 +336,10 @@
         {
           "type": "style_element",
           "named": true
+        },
+        {
+          "type": "twig_comment",
+          "named": true
         }
       ]
     }
@@ -422,6 +430,10 @@
   },
   {
     "type": "raw_text",
+    "named": true
+  },
+  {
+    "type": "twig_comment",
     "named": true
   },
   {
