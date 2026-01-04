@@ -9,6 +9,10 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "twig_comment"
+          },
+          {
+            "type": "SYMBOL",
             "name": "statement_directive"
           },
           {
@@ -163,6 +167,10 @@
     "_node": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "twig_comment"
+        },
         {
           "type": "SYMBOL",
           "name": "html_element"
@@ -549,6 +557,10 @@
           "value": "&#[xX][0-9a-fA-F]+;"
         }
       ]
+    },
+    "twig_comment": {
+      "type": "PATTERN",
+      "value": "\\{#[^#]*(?:#[^}][^#]*)*?#\\}"
     }
   },
   "extras": [
