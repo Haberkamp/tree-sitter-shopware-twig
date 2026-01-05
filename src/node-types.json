@@ -113,6 +113,10 @@
           "named": true
         },
         {
+          "type": "statement_directive",
+          "named": true
+        },
+        {
           "type": "twig_comment",
           "named": true
         },
