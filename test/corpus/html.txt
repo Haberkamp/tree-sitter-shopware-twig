@@ -380,3 +380,55 @@ Raw text elements
     (html_start_tag (html_tag_name))
     (raw_text)
     (html_end_tag (html_tag_name))))
+
+===================================
+Vue v-bind shorthand (:)
+===================================
+
+<a :href="url">Link</a>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue v-on shorthand (@)
+===================================
+
+<button @click="handler">Click</button>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue v-slot shorthand (#)
+===================================
+
+<template #header>Header</template>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute (html_attribute_name)))
+    (content)
+    (html_end_tag (html_tag_name))))
