@@ -551,3 +551,100 @@ Vue v-model modifiers
         (html_attribute
           (html_attribute_name)
           (html_quoted_attribute_value (html_attribute_value)))))))
+
+===================================
+Vue dynamic v-bind arguments
+===================================
+
+<a v-bind:[attributeName]="url">Link</a>
+<a :[attributeName]="url">Link</a>
+<div :[prop]="value">Content</div>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue dynamic v-on arguments
+===================================
+
+<button v-on:[eventName]="handler">Click</button>
+<button @[eventName]="handler">Click</button>
+<button @[event].prevent="handler">Click</button>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue dynamic slot arguments
+===================================
+
+<template v-slot:[slotName]>Content</template>
+<template #[slotName]>Content</template>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)))
+    (content)
+    (html_end_tag (html_tag_name))))

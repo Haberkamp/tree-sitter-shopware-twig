@@ -99,7 +99,7 @@ module.exports = grammar({
         )
       ),
 
-    html_attribute_name: () => /[@:#]?[a-zA-Z][a-zA-Z0-9_\-.💩]*/,
+    html_attribute_name: () => /[@:#]?[a-zA-Z\[][a-zA-Z0-9_\-.:\[\]💩]*/,
 
     html_attribute_value: () => /[^>\s"'=]+/,
 
