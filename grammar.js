@@ -23,12 +23,14 @@ module.exports = grammar({
     $._implicit_end_tag,
     $.raw_text,
     $.comment,
+    $._interpolation_content,
   ],
 
   rules: {
     template: ($) =>
       repeat(
         choice(
+          $.vue_interpolation,
           $.twig_comment,
           $.statement_directive,
           $.html_element,
@@ -65,7 +67,7 @@ module.exports = grammar({
 
     html_void_tag: ($) => seq($.html_start_tag, $._implicit_end_tag),
 
-    _node: ($) => choice($.twig_comment, $.html_element, $.html_entity, $.content),
+    _node: ($) => choice($.vue_interpolation, $.twig_comment, $.html_element, $.html_entity, $.content),
 
     html_start_tag: ($) =>
       seq(
@@ -141,5 +143,12 @@ module.exports = grammar({
       ),
 
     twig_comment: () => /\{#[^#]*(?:#[^}][^#]*)*?#\}/,
+
+    vue_interpolation: ($) =>
+      seq(
+        '{{',
+        optional(alias($._interpolation_content, $.interpolation_content)),
+        '}}'
+      ),
   },
 });

@@ -28,6 +28,7 @@ enum TokenType {
   IMPLICIT_END_TAG,
   RAW_TEXT,
   COMMENT,
+  INTERPOLATION_CONTENT,
 };
 
 typedef enum {
@@ -261,6 +262,88 @@ static bool scan_comment(TSLexer *lexer) {
   return false;
 }
 
+// Scan content inside {{ }}, handling nested braces and strings
+static bool scan_interpolation_content(TSLexer *lexer) {
+  // We're positioned after {{ - scan until we find }}
+  int brace_depth = 0;
+  bool has_content = false;
+  
+  while (lexer->lookahead) {
+    // Check for closing }}
+    if (lexer->lookahead == '}' && brace_depth == 0) {
+      // Peek ahead for second }
+      lexer->mark_end(lexer);
+      advance(lexer);
+      if (lexer->lookahead == '}') {
+        // Found }} at depth 0 - we're done
+        // Don't consume the }} - let grammar handle it
+        lexer->result_symbol = INTERPOLATION_CONTENT;
+        return has_content;
+      }
+      // Single } at depth 0 is part of content (shouldn't happen in valid Vue)
+      has_content = true;
+      continue;
+    }
+    
+    // Track brace depth
+    if (lexer->lookahead == '{') {
+      brace_depth++;
+      has_content = true;
+      advance(lexer);
+      continue;
+    }
+    
+    if (lexer->lookahead == '}') {
+      brace_depth--;
+      has_content = true;
+      advance(lexer);
+      continue;
+    }
+    
+    // Handle string literals - don't count braces inside strings
+    if (lexer->lookahead == '"' || lexer->lookahead == '\'' || lexer->lookahead == '`') {
+      int32_t quote = lexer->lookahead;
+      has_content = true;
+      advance(lexer);
+      
+      while (lexer->lookahead && lexer->lookahead != quote) {
+        if (lexer->lookahead == '\\') {
+          advance(lexer); // Skip escape char
+          if (lexer->lookahead) advance(lexer); // Skip escaped char
+        } else if (quote == '`' && lexer->lookahead == '$' ) {
+          // Template literal ${} - need to handle nested
+          advance(lexer);
+          if (lexer->lookahead == '{') {
+            advance(lexer);
+            // Recursively count braces in template expression
+            int template_depth = 1;
+            while (lexer->lookahead && template_depth > 0) {
+              if (lexer->lookahead == '{') template_depth++;
+              else if (lexer->lookahead == '}') template_depth--;
+              else if (lexer->lookahead == '\\') {
+                advance(lexer);
+                if (lexer->lookahead) advance(lexer);
+                continue;
+              }
+              advance(lexer);
+            }
+          }
+        } else {
+          advance(lexer);
+        }
+      }
+      if (lexer->lookahead == quote) advance(lexer); // Consume closing quote
+      continue;
+    }
+    
+    // Regular character
+    has_content = true;
+    advance(lexer);
+  }
+  
+  return false; // EOF without finding }}
+}
+
 static void pop_tag(Scanner *scanner) {
   if (scanner->tags.size > 0) {
     Tag popped_tag = array_pop(&scanner->tags);
@@ -412,6 +495,16 @@ static bool scan_self_closing_tag_delimiter(Scanner *scanner, TSLexer *lexer) {
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
   if (valid_symbols[RAW_TEXT] && !valid_symbols[START_TAG_NAME] && !valid_symbols[END_TAG_NAME]) {
     return scan_raw_text(scanner, lexer);
+  }
+
+  // Check for interpolation content before skipping whitespace
+  if (valid_symbols[INTERPOLATION_CONTENT]) {
+    // Don't skip leading whitespace - it's part of the expression
+    if (lexer->lookahead != '}') {
+      return scan_interpolation_content(lexer);
+    }
+    // If we're at }, the expression is empty - return false to let grammar handle it
+    return false;
   }
 
   while (iswspace(lexer->lookahead)) {
