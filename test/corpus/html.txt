@@ -432,3 +432,122 @@ Vue v-slot shorthand (#)
       (html_attribute (html_attribute_name)))
     (content)
     (html_end_tag (html_tag_name))))
+
+===================================
+Vue event modifiers
+===================================
+
+<button @click.stop="handler">Stop</button>
+<button @click.prevent="handler">Prevent</button>
+<button @click.stop.prevent="handler">Both</button>
+<form @submit.prevent="onSubmit">Submit</form>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue key modifiers
+===================================
+
+<input @keyup.enter="submit">
+<input @keyup.esc="cancel">
+<input @keyup.ctrl.enter="submitWithCtrl">
+
+---
+
+(template
+  (html_element
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value))))))
+  (html_element
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value))))))
+  (html_element
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value)))))))
+
+===================================
+Vue v-model modifiers
+===================================
+
+<input v-model.lazy="msg">
+<input v-model.number="age">
+<input v-model.trim="text">
+<input v-model.lazy.trim="combined">
+
+---
+
+(template
+  (html_element
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value))))))
+  (html_element
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value))))))
+  (html_element
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value))))))
+  (html_element
+    (html_void_tag
+      (html_start_tag
+        (html_tag_name)
+        (html_attribute
+          (html_attribute_name)
+          (html_quoted_attribute_value (html_attribute_value)))))))
