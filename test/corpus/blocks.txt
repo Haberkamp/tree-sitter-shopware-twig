@@ -258,3 +258,109 @@ Twig comment with hash inside
 
 (template
   (twig_comment))
+
+===
+Twig block inside HTML element
+===
+
+<div>{% block inner %}{% endblock %}</div>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (statement_directive
+      (tag_statement
+        (tag)
+        (variable)))
+    (statement_directive
+      (tag_statement
+        (tag)))
+    (html_end_tag (html_tag_name))))
+
+===
+Twig block with content inside HTML element
+===
+
+<div>
+    {% block inner %}
+        <span>Content</span>
+    {% endblock %}
+</div>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (statement_directive
+      (tag_statement
+        (tag)
+        (variable)))
+    (html_element
+      (html_start_tag (html_tag_name))
+      (content)
+      (html_end_tag (html_tag_name)))
+    (statement_directive
+      (tag_statement
+        (tag)))
+    (html_end_tag (html_tag_name))))
+
+===
+Nested HTML with twig if statement
+===
+
+<ul>
+    {% if items %}
+        <li>Item</li>
+    {% endif %}
+</ul>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (statement_directive
+      (if_statement
+        (conditional)
+        (variable)))
+    (html_element
+      (html_start_tag (html_tag_name))
+      (content)
+      (html_end_tag (html_tag_name)))
+    (statement_directive
+      (tag_statement
+        (conditional)))
+    (html_end_tag (html_tag_name))))
+
+===
+Multiple twig blocks inside HTML element
+===
+
+<div>
+    {% block first %}{% endblock %}
+    {% block second %}{% endblock %}
+</div>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (statement_directive
+      (tag_statement
+        (tag)
+        (variable)))
+    (statement_directive
+      (tag_statement
+        (tag)))
+    (statement_directive
+      (tag_statement
+        (tag)
+        (variable)))
+    (statement_directive
+      (tag_statement
+        (tag)))
+    (html_end_tag (html_tag_name))))
