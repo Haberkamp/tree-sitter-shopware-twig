@@ -648,3 +648,80 @@ Vue dynamic slot arguments
         (html_attribute_name)))
     (content)
     (html_end_tag (html_tag_name))))
+
+===================================
+Vue v-bind full syntax
+===================================
+
+<a v-bind:href="url">Link</a>
+<div v-bind:class="{ active: isActive }">Styled</div>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue v-on full syntax
+===================================
+
+<button v-on:click="handler">Click</button>
+<button v-on:click.stop.prevent="handler">Both</button>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute
+        (html_attribute_name)
+        (html_quoted_attribute_value (html_attribute_value))))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue v-slot full syntax
+===================================
+
+<template v-slot:header>Header</template>
+<template v-slot:default>Default</template>
+
+---
+
+(template
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute (html_attribute_name)))
+    (content)
+    (html_end_tag (html_tag_name)))
+  (html_element
+    (html_start_tag
+      (html_tag_name)
+      (html_attribute (html_attribute_name)))
+    (content)
+    (html_end_tag (html_tag_name))))
