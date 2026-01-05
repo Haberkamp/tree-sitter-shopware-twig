@@ -725,3 +725,186 @@ Vue v-slot full syntax
       (html_attribute (html_attribute_name)))
     (content)
     (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - simple
+===================================
+
+<p>Hello {{ name }}</p>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (content)
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - no spaces
+===================================
+
+<p>{{name}}</p>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - property access
+===================================
+
+<span>{{ user.profile.name }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - method call
+===================================
+
+<span>{{ formatDate(timestamp) }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - ternary
+===================================
+
+<span>{{ isActive ? 'Yes' : 'No' }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - object literal
+===================================
+
+<span>{{ { active: isActive, disabled: !enabled } }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - nested object
+===================================
+
+<span>{{ { user: { name: 'test' } } }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - string with braces
+===================================
+
+<span>{{ "hello } world" }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - template literal
+===================================
+
+<span>{{ `${user.name} - ${user.email}` }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - multiple in element
+===================================
+
+<p>{{ greeting }}, {{ name }}!</p>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (content)
+    (vue_interpolation (interpolation_content))
+    (content)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - at root
+===================================
+
+{{ message }}
+
+---
+
+(template
+  (vue_interpolation (interpolation_content)))
+
+===================================
+Vue text interpolation - empty
+===================================
+
+<p>{{}}</p>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation)
+    (html_end_tag (html_tag_name))))
+
+===================================
+Vue text interpolation - arithmetic
+===================================
+
+<span>{{ count + 1 }}</span>
+
+---
+
+(template
+  (html_element
+    (html_start_tag (html_tag_name))
+    (vue_interpolation (interpolation_content))
+    (html_end_tag (html_tag_name))))

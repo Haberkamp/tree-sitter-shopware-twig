@@ -9,6 +9,10 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "vue_interpolation"
+          },
+          {
+            "type": "SYMBOL",
             "name": "twig_comment"
           },
           {
@@ -167,6 +171,10 @@
     "_node": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "vue_interpolation"
+        },
         {
           "type": "SYMBOL",
           "name": "twig_comment"
@@ -561,6 +569,36 @@
     "twig_comment": {
       "type": "PATTERN",
       "value": "\\{#[^#]*(?:#[^}][^#]*)*?#\\}"
+    },
+    "vue_interpolation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{{"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_interpolation_content"
+              },
+              "named": true,
+              "value": "interpolation_content"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}}"
+        }
+      ]
     }
   },
   "extras": [
@@ -608,6 +646,10 @@
     {
       "type": "SYMBOL",
       "name": "comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_interpolation_content"
     }
   ],
   "inline": [],
